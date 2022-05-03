@@ -1,0 +1,19 @@
+kind: Module
+type: container
+name: onedev
+description: git host
+image: 1dev/server
+services:
+  - name: onedev
+    ports:
+      - name: onedev
+        containerPort: 6611
+      - name: onedev-web
+        containerPort: 6610
+    volumes:
+      - name: onedev
+        containerPath: /opt/onedev
+    ingresses:
+      - path: /
+        port: onedev-web
+        hostname: onedev.${variables.base-hostname}

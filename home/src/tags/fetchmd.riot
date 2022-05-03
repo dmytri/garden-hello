@@ -1,0 +1,28 @@
+<fetchmd>
+  <div />
+  <script>
+    export default {
+      setInnerHTML () {
+        const path = this.props.fetch
+        fetch(path)
+        .then(response => {
+          if (response.ok) {
+            return response.text()
+          } else {
+            return `${path} not found`
+          }
+        })
+        .then((data) => {
+          const div = this.$('div')
+          div.innerHTML = marked.parse(data)
+        })
+      },
+      onMounted () {
+        this.setInnerHTML()
+      },
+      onUpdated () {
+        this.setInnerHTML()
+      }
+    }
+  </script>
+</fetchmd>

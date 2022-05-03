@@ -1,0 +1,22 @@
+<copy id={ state.hash }>
+  <p>{ hash }</p>
+  <fetchmd fetch="{ state.hash.slice(1) }.md" />
+  <script>
+    export default {
+      setHash () {
+        this.update({
+          hash: window.location.hash
+        })
+        //this.update()
+      },
+      onBeforeMount (props, state) {
+        window.location.hash = state.hash = window.location.hash || '#README'
+      },
+      onMounted () {
+        window.addEventListener("hashchange", () => {
+          this.setHash()
+        })
+      }
+    }
+  </script>
+</copy>

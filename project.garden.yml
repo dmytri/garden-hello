@@ -1,13 +1,15 @@
 kind: Project
-name: init
+name: cabinet
 
 environments:
   - name: local
+    variables:
+      base-hostname: cabinet.192.168.50.35.nip.io
 
 providers:
   - name: local-kubernetes
     environments: [local]
-    context: kind-kind
+    context: minikube
 
 defaultEnvironment: "local"
 
