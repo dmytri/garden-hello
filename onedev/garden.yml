@@ -5,6 +5,7 @@ description: git host
 image: 1dev/server
 services:
   - name: onedev
+    replicas: 1
     ports:
       - name: onedev
         containerPort: 6611
@@ -12,6 +13,7 @@ services:
         containerPort: 6610
     volumes:
       - name: onedev
+        module: volume-onedev
         containerPath: /opt/onedev
     ingresses:
       - path: /

@@ -1,0 +1,9 @@
+kind: Module
+type: persistentvolumeclaim
+name: volume-onedev
+description: volume for onedev
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi
