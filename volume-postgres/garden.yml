@@ -1,7 +1,7 @@
 kind: Module
 type: persistentvolumeclaim
-name: volume-onedev
-description: volume for onedev
+name: volume-postgres
+description: volume for postgres
 spec:
   accessModes: [ReadWriteOnce]
   resources:

@@ -1,0 +1,38 @@
+kind: Module
+type: container
+name: postgres
+description: git host
+image: postgres@sha256:625df66e2b092d2a5be485d52f80d6edf41cb02f7315a29c980a877519d14e4e
+  # image tag postgress:14.2
+services:
+  - name: postgres
+    replicas: 1
+    env:
+      POSTGRES_DATABASE: ${var.postgres-database}
+      POSTGRES_USERNAME: ${var.postgres-username}
+      POSTGRES_PASSWORD: ${var.postgres-password}
+    ports:
+      - name: postgres
+        containerPort: 5432
+    volumes:
+      - name: postgres
+        containerPath: /var/lib/postgresql/data
+tasks:
+  - name: database-onedev-create
+    env:
+      PGHOST: postgres
+      PGUSER: ${var.postgres-username}
+      PGPASSWORD: ${var.postgres-password}
+    command: [createdb, onedev] 
+    dependencies:
+      - postgres
+tests:
+  - name: database-onedev-exists
+    env:
+      PGHOST: postgres
+      PGDATABASE: onedev
+      PGUSER: ${var.postgres-username}
+      PGPASSWORD: ${var.postgres-password}
+    command: [psql, -w, -c, "SELECT 1"]
+    dependencies:
+      - database-onedev-create

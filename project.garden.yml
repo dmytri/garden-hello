@@ -6,10 +6,14 @@ environments:
     variables:
       base-hostname: cabinet.192.168.50.35.nip.io
 
+defaultEnvironment: "local"
+
 providers:
   - name: local-kubernetes
     environments: [local]
     context: minikube
 
-defaultEnvironment: "local"
-
+variables:
+  postgres-database: postgres
+  postgres-username: postgres
+  postgres-password: trustme

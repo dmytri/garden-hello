@@ -18,3 +18,5 @@ services:
         - target: /usr/share/nginx/html/
           source: src
           defaultFileMode: 0444
+    dependencies:
+      - onedev

@@ -2,20 +2,28 @@ kind: Module
 type: container
 name: onedev
 description: git host
-image: 1dev/server
+image: 1dev/server@sha256:8abe3d434c0b20a874602ce6169ce54f85de14d52bf10f7e24c748ffae1a345b
+# image tag 1dev/server:7.1.2
 services:
   - name: onedev
     replicas: 1
+    env:
+      hibernate_dialect: io.onedev.server.persistence.PostgreSQLDialect
+      hibernate_connection_driver_class: org.postgresql.Driver
+      hibernate_connection_url: jdbc:postgresql://postgres:5432/onedev
+      hibernate_connection_username: ${var.postgres-username}
+      hibernate_connection_password: ${var.postgres-password}
     ports:
-      - name: onedev
+      - name: ssh
         containerPort: 6611
-      - name: onedev-web
+      - name: http
         containerPort: 6610
     volumes:
       - name: onedev
-        module: volume-onedev
         containerPath: /opt/onedev
     ingresses:
       - path: /
-        port: onedev-web
+        port: http
         hostname: onedev.${variables.base-hostname}
+    dependencies:
+      - database-onedev-create
