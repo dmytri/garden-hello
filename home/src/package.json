@@ -1,0 +1,14 @@
+{
+  "name": "cabinet",
+  "version": "1.0.0",
+  "description": "trick.ca/binet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dmytri Kleiner <dk@trick.ca>",
+  "license": "ISC",
+  "dependencies": {
+    "git-pull-or-clone": "^2.0.2"
+  }
+}

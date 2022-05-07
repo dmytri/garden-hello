@@ -12,7 +12,6 @@ services:
       - path: /
         port: http
         hostname: home.${variables.base-hostname}
-
     devMode:
       sync:
         - target: /usr/share/nginx/html/
@@ -20,3 +19,13 @@ services:
           defaultFileMode: 0444
     dependencies:
       - onedev
+tasks:
+  - name: npm-install
+    command: [npm, install]
+    dependencies:
+      - home
+tests:
+  - name: npm-audit
+    command: [npm, audit]
+    dependencies:
+      - npm-install
