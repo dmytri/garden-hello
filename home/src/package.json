@@ -4,7 +4,8 @@
   "description": "trick.ca/binet",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync-sites": "node ./sync.js"
   },
   "author": "Dmytri Kleiner <dk@trick.ca>",
   "license": "ISC",

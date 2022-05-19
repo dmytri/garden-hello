@@ -1,0 +1,8 @@
+kind: Command
+name: sync-sites
+description:
+  short: Sync sites from onedev
+gardenCommand:
+  - run
+  - task
+  - sync-sites

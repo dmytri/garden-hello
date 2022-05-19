@@ -18,12 +18,24 @@ services:
           source: src
           defaultFileMode: 0444
     dependencies:
+      - home-secrets
       - onedev
 tasks:
   - name: npm-install
     command: [npm, install]
     dependencies:
       - home
+  - name: sync-sites
+    command: [npm, run, sync-sites]
+    env:
+      GIT_USERNAME:
+        secretRef:
+          name: git-credentials
+          key: username
+      GIT_PASSWORD:
+        secretRef:
+          name: git-credentials
+          key: password
 tests:
   - name: npm-audit
     command: [npm, audit]
