@@ -16,7 +16,10 @@ services:
         containerPort: 5432
     volumes:
       - name: postgres
+        module: volume-claim-postgres
         containerPath: /var/lib/postgresql/data
+    dependencies:
+      - volume-claim-postgres
 tasks:
   - name: database-onedev-create
     env:
@@ -36,3 +39,13 @@ tests:
     command: [psql, -w, -c, "SELECT 1"]
     dependencies:
       - database-onedev-create
+---
+kind: Module
+type: persistentvolumeclaim
+name: volume-claim-postgres
+description: volume for postgres
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi

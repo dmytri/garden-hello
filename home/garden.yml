@@ -2,12 +2,29 @@ kind: Module
 type: container
 name: home
 description: home page
+variables:
+  gitEnv:
+    GIT_USERNAME:
+      secretRef:
+        name: git-credentials
+        key: username
+    GIT_PASSWORD:
+      secretRef:
+        name: git-credentials
+        key: password
+    GIT_ASKPASS: "/app/git_password"
 services:
   - name: home
+    replicas: 1
+    volumes:
+      - name: volume-home
+        module: volume-claim-home
+        containerPath: /usr/share/nginx/html/sites
     ports:
       - name: http
-        containerPort: 80
+        containerPort: 8080
         servicePort: 80
+    env: ${var.gitEnv}
     ingresses:
       - path: /
         port: http
@@ -19,7 +36,7 @@ services:
           defaultFileMode: 0444
     dependencies:
       - home-secrets
-      - onedev
+      - volume-claim-home
 tasks:
   - name: npm-install
     command: [npm, install]
@@ -27,17 +44,22 @@ tasks:
       - home
   - name: sync-sites
     command: [npm, run, sync-sites]
-    env:
-      GIT_USERNAME:
-        secretRef:
-          name: git-credentials
-          key: username
-      GIT_PASSWORD:
-        secretRef:
-          name: git-credentials
-          key: password
+    env: ${var.gitEnv}
+    dependencies:
+      - npm-install
+      - onedev
 tests:
   - name: npm-audit
     command: [npm, audit]
     dependencies:
       - npm-install
+---
+kind: Module
+type: persistentvolumeclaim
+name: volume-claim-home
+description: volume for home
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 1Gi

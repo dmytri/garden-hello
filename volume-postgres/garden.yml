@@ -1,9 +1,0 @@
-kind: Module
-type: persistentvolumeclaim
-name: volume-postgres
-description: volume for postgres
-spec:
-  accessModes: [ReadWriteOnce]
-  resources:
-    requests:
-      storage: 1Gi

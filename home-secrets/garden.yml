@@ -1,0 +1,4 @@
+kind: Module
+type: kubernetes
+name: home-secrets
+files: [secrets.yml]

@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sync-sites": "node ./sync.js"
+    "sync-sites": "DEBUG=* node ./sync.js"
   },
   "author": "Dmytri Kleiner <dk@trick.ca>",
   "license": "ISC",
   "dependencies": {
+    "debug": "^4.3.4",
     "git-pull-or-clone": "^2.0.2"
   }
 }
